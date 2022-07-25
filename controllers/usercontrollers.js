@@ -62,7 +62,7 @@ class usercontroller {
 
         if (!user.followers.includes(req.body.userId)) {
           await user.updateOne({ $push: { followers: req.body.userId } });
-          await currentuser.updateOne({ $push: { following: req.params.id } });
+          await currentuser.updateOne({ $push: { followings: req.params.id } });
           res.status(200).json("user has been followed");
         } else {
           res.status(403).json("you already follow this user");

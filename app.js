@@ -22,6 +22,7 @@ app.use(morgan("common"));
 //routes
 app.use("/api/user", userroute);
 app.use("/api/auth", authroute);
+app.use("/api/post",postroute);
 
 app.listen(port, () => {
   console.log(`server listening on http://localhost:${port}`);
