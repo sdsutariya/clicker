@@ -9,6 +9,16 @@ class authcontroller {
       const salt = await bcrypt.genSalt(10);
       const hashedpassword = await bcrypt.hash(req.body.password, salt);
 
+      const userexists = await User.findOne({ email: req.body.email });
+      console.log("userexists  :: ",userexists);
+      if (userexists) {
+        res.status(404).json({
+          sucess: false,
+          data: null,
+          error: "user already exists",
+        });
+      }
+
       //create new user
       const newUser = await new User({
         username: req.body.username,
@@ -18,9 +28,17 @@ class authcontroller {
 
       //save user and return response
       const user = await newUser.save();
-      res.status(200).json(user);
+      res.status(200).json({
+        sucess: true,
+        data: user,
+        message: 'Registration sucessfuly',
+      });
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({
+        sucess: false,
+        data: null,
+        error: error.toString(),
+      });
     }
   };
 
@@ -30,7 +48,11 @@ class authcontroller {
       //check user exists or not
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
-        res.status(404).json("user not found");
+        res.status(404).json({
+          sucess: false,
+          data: null,
+          error: "user not found",
+        });
       }
 
       const validpassword = await bcrypt.compare(
@@ -38,12 +60,24 @@ class authcontroller {
         user.password
       );
       if (!validpassword) {
-        res.status(400).json("wrong password");
+        res.status(400).json({
+          sucess: false,
+          data: null,
+          error: "wrong password",
+        });
       }
 
-      res.status(200).json(user);
+      res.status(200).json({
+        sucess: true,
+        data: user,
+        message: 'Login sucessfuly',
+      });
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({
+        sucess: false,
+        data: null,
+        error: error.toString(),
+      });
     }
   };
 }
