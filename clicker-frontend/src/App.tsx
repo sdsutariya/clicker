@@ -1,11 +1,12 @@
 import React from 'react';
-import { Typography, Box } from '@mui/material';
+import { Outlet } from 'react-router-dom'
+import './App.css'
 
 function App() {
   return (
-    <Box>
-      <Typography variant='h1'>Hello!</Typography>
-    </Box>
+    <>
+      <Outlet />
+    </>
   );
 }
 
