@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Toolbar, Typography } from '@mui/material'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import NavBar from './Navbar/NavBar'
 import RightDrawer from './RightDrawer'
 import LeftPanel from './LeftPanel'
-import { Navigate } from 'react-router-dom'
+import { useIsLoggedIn, USER_COOKIE } from '../../Apis/AuthApi'
+import { getCookie } from 'typescript-cookie'
 
 function HomePage() {
-    if (false) return <Navigate to={'/signin'}/>
+    const navigate = useNavigate()
+    useEffect(() => {
+        const user_id = getCookie(USER_COOKIE)
+        if (!user_id) {
+            navigate('/signin', { replace: true })
+        }
+    }, [])
     return (
         <Box sx={{
             backgroundColor: theme => theme.clickerColors.background
         }}>
             <NavBar />
-            <Toolbar/>
+            <Toolbar />
             <Box sx={{
                 display: 'flex',
             }}>
@@ -27,12 +34,12 @@ function HomePage() {
                 <Box sx={{
                     flex: 5
                 }}>
-                    <Outlet/>
+                    <Outlet />
                 </Box>
                 <Box sx={{
                     flex: 2
                 }}>
-                    <LeftPanel/>
+                    <LeftPanel />
                 </Box>
             </Box>
         </Box>

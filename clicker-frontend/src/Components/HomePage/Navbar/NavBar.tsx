@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Avatar, Box, TextField, Toolbar, Typography } from '@mui/material'
 import Logo from '../../Logo/Logo'
 import { Chat, Notifications, Person } from '@mui/icons-material'
+import ProfileMenu from './ProfileMenu'
 
 function NavBar() {
     return (
@@ -26,7 +27,7 @@ function NavBar() {
                             <Chat />
                             <Notifications />
                         </Box>
-                        <Avatar />
+                        <ProfileMenu />
                     </Box>
                 </Toolbar>
             </AppBar>

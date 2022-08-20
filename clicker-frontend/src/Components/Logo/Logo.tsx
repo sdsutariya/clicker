@@ -18,4 +18,4 @@ function Logo({ size, variant }: { size: 'small' | 'large', variant: 'button' | 
   )
 }
 
-export default Logo
+export default React.memo(Logo)

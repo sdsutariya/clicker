@@ -13,7 +13,7 @@ class authcontroller {
       console.log("userexists  :: ",userexists);
       if (userexists) {
         res.status(404).json({
-          sucess: false,
+          success: false,
           data: null,
           error: "user already exists",
         });
@@ -29,13 +29,13 @@ class authcontroller {
       //save user and return response
       const user = await newUser.save();
       res.status(200).json({
-        sucess: true,
+        success: true,
         data: user,
         message: 'Registration sucessfuly',
       });
     } catch (error) {
       res.status(500).json({
-        sucess: false,
+        success: false,
         data: null,
         error: error.toString(),
       });
@@ -49,7 +49,7 @@ class authcontroller {
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
         res.status(404).json({
-          sucess: false,
+          success: false,
           data: null,
           error: "user not found",
         });
@@ -61,20 +61,20 @@ class authcontroller {
       );
       if (!validpassword) {
         res.status(400).json({
-          sucess: false,
+          success: false,
           data: null,
           error: "wrong password",
         });
       }
 
       res.status(200).json({
-        sucess: true,
+        success: true,
         data: user,
         message: 'Login sucessfuly',
       });
     } catch (error) {
       res.status(500).json({
-        sucess: false,
+        success: false,
         data: null,
         error: error.toString(),
       });

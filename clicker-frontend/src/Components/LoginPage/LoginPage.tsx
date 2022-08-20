@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Stack, Typography, styled } from '@mui/material'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { getCookie } from 'typescript-cookie'
+import { USER_COOKIE } from '../../Apis/AuthApi'
 
-const StyledContainer = styled(Box)(({theme}) => ({
+const StyledContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
     minHeight: '100vh',
     backgroundColor: theme.clickerColors?.background,
@@ -17,6 +19,16 @@ const StyledContainer = styled(Box)(({theme}) => ({
     }
 }))
 function LoginPage() {
+    const navigate = useNavigate()
+    useEffect(() => {
+        const userId = getCookie(USER_COOKIE)
+        if (userId) {
+            navigate('/home', { replace: true })
+        }
+    }, [])
+    console.log('login');
+    
+
     return (
         <StyledContainer>
             <Stack sx={{
