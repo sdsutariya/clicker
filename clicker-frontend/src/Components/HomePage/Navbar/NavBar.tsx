@@ -3,6 +3,7 @@ import { AppBar, Avatar, Box, TextField, Toolbar, Typography } from '@mui/materi
 import Logo from '../../Logo/Logo'
 import { Chat, Notifications, Person } from '@mui/icons-material'
 import ProfileMenu from './ProfileMenu'
+import NotificationMenu from './NavigationMenu'
 
 function NavBar() {
     return (
@@ -23,9 +24,8 @@ function NavBar() {
                             alignItems: 'center',
                             gap: 2
                         }}>
-                            <Person />
+                            <NotificationMenu />
                             <Chat />
-                            <Notifications />
                         </Box>
                         <ProfileMenu />
                     </Box>

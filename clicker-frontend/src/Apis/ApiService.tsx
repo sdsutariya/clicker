@@ -7,14 +7,17 @@ export async function RestRequest<P, R>(
     path: string,
     params: P = {} as P,
     method: RequestType,
+    sessionId: string='',
     contentType: string = 'application/json'
 ) {
+    console.log(sessionId)
     const data: ApiResponse = await fetch(BASE_URL + path, {
         method: method,
-        body: JSON.stringify(params),
         headers: {
-            'Content-Type': contentType
-        }
+            'Content-Type': contentType,
+            ...(sessionId && {userid: sessionId})
+        },
+        ...(method != 'GET' && {body: JSON.stringify(params)}),
     }).then(res => res.json()).catch(err => {
         console.log(err)
     })

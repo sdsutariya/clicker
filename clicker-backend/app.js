@@ -8,6 +8,8 @@ import authroute from "./routes/auth.js";
 import postroute from "./routes/posts.js";
 import helmet from "helmet";
 import morgan from "morgan";
+import bodyParser from "body-parser"
+
 const port = process.env.PORT || 3002;
 const DATABASE_URL = process.env.DATABASE_URL;
 
@@ -15,7 +17,8 @@ const DATABASE_URL = process.env.DATABASE_URL;
 connectdb(DATABASE_URL);
 
 //middleware
-app.use(express.json());
+app.use(bodyParser.json({ limit: '5mb'}));
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true, parameterLimit: 5000}))
 app.use(helmet());
 app.use(morgan("common"));
 

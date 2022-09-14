@@ -17,3 +17,16 @@ export type User = {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface CreatePost {
+    userId: string,
+    desc: string,
+    img: string
+}
+
+export interface Post extends CreatePost {
+    likes?: Array<any>,
+    createdAt: string,
+    updatedAt: string,
+    _id: string
+}

@@ -31,7 +31,7 @@ class authcontroller {
       res.status(200).json({
         success: true,
         data: user,
-        message: 'Registration sucessfuly',
+        message: 'Registration successfuly',
       });
     } catch (error) {
       res.status(500).json({
@@ -70,7 +70,7 @@ class authcontroller {
       res.status(200).json({
         success: true,
         data: user,
-        message: 'Login sucessfuly',
+        message: 'Login successfuly',
       });
     } catch (error) {
       res.status(500).json({

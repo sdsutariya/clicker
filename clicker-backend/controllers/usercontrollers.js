@@ -11,7 +11,7 @@ class usercontroller {
           req.body.password = await bcrypt.hash(req.body.password, salt);
         } catch (error) {
           return res.status(500).json({
-            sucess: false,
+            success: false,
             data: null,
             error: error.toString(),
           });
@@ -22,20 +22,20 @@ class usercontroller {
           $set: req.body,
         });
         res.status(200).json({
-          sucess: true,
+          success: true,
           data: user,
           message: "Account has been updated",
         });
       } catch (error) {
         return res.status(500).json({
-          sucess: false,
+          success: false,
           data: null,
           error: error.toString(),
         });
       }
     } else {
       return res.status(403).json({
-        sucess: false,
+        success: false,
         data: null,
         error: "you can update only your account",
       });
@@ -48,20 +48,20 @@ class usercontroller {
       try {
         const user = await User.findByIdAndDelete(req.params.id);
         res.status(200).json({
-          sucess: true,
+          success: true,
           data: user,
           message: "Account has been deleted",
         });
       } catch (error) {
         return res.status(500).json({
-          sucess: false,
+          success: false,
           data: null,
           error: error.toString(),
         });
       }
     } else {
       return res.status(403).json({
-        sucess: false,
+        success: false,
         data: null,
         error: "you can delete only your account",
       });
@@ -76,13 +76,14 @@ class usercontroller {
       //remove password and other unimportant things
       const { password, updatedAt, createdAt, ...other } = user._doc;
       res.status(200).json({
-        sucess: true,
+        success: true,
         data: other,
-        error: "User details has been fetched sucessfully",
+        error: "User details has been fetched successfully",
       });
     } catch (error) {
+      console.log(error)
       return res.status(403).json({
-        sucess: false,
+        success: false,
         data: null,
         error: "you can delete only your account",
       });
@@ -100,27 +101,27 @@ class usercontroller {
           await user.updateOne({ $push: { followers: req.body.userId } });
           await currentuser.updateOne({ $push: { followings: req.params.id } });
           res.status(200).json({
-            sucess: true,
+            success: true,
           data: {},
           message: "user has been followed",
           });
         } else {
           res.status(403).json({
-            sucess: false,
+            success: false,
             data: null,
             error: "you already follow this user",
           });
         }
       } catch (error) {
         return res.status(500).json({
-          sucess: false,
+          success: false,
           data: null,
           error: error.toString(),
         });
       }
     } else {
       return res.status(403).json({
-        sucess: false,
+        success: false,
         data: null,
         error: "you can`t follow yourself",
       });
@@ -137,26 +138,26 @@ class usercontroller {
         if (user.followers.includes(req.body.userId)) {
           await user.updateOne({ $pull: { followers: req.body.userId } });
           await currentuser.updateOne({ $pull: { following: req.params.id } });
-          res.status(200).json({sucess: true,
+          res.status(200).json({success: true,
             data: user,
             message:"user has been unfollowed"});
         } else {
           res.status(403).json({
-            sucess: false,
+            success: false,
             data: null,
             error: "you don`t unfollow this user",
           });
         }
       } catch (error) {
         return res.status(500).json({
-          sucess: false,
+          success: false,
           data: null,
           error: error.toString(),
         });
       }
     } else {
       return res.status(403).json({
-        sucess: false,
+        success: false,
         data: null,
         error: "you can`t unfollow yourself",
       });

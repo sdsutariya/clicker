@@ -38,7 +38,7 @@ export function useRegistration() {
     const navigate = useNavigate()
     const mutation = useMutation(userRegistration, {
         onSuccess: (data) => {
-            toast.done('Registration Successfull!')
+            toast.success('Registration Successfull!')
             navigate('/signin', { replace: true })
         }
     })

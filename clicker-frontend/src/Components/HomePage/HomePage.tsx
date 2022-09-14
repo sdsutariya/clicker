@@ -31,7 +31,7 @@ function HomePage() {
                 }}>
                     <RightDrawer />
                 </Box>
-                <Box sx={{
+                <Box className='home-container' sx={{
                     flex: 5
                 }}>
                     <Outlet />

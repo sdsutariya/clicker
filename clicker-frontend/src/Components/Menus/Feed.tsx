@@ -1,10 +1,18 @@
 import React from 'react'
 import { MoreVert } from '@mui/icons-material'
-import { Box, Card, Stack, Typography, CardMedia, Avatar } from '@mui/material'
+import { Box, Card, Stack, Typography, CardMedia, Avatar, CircularProgress } from '@mui/material'
+import PostCreate from './Post/PostCreate'
+import { useGetPosts } from '../../Apis/PostApi'
+import { Post } from '../../Apis/ApiTypes'
+import moment from 'moment'
 
-const FeedItem = () => {
+type props = {
+    post: Post
+}
+
+const FeedItem = ({ post }: props) => {
     return (
-        <Card elevation={4} sx={{ marginTop: 1}}>
+        <Card elevation={4} sx={{ marginTop: 1 }}>
             <Stack sx={{
                 p: 1
             }}>
@@ -15,21 +23,24 @@ const FeedItem = () => {
                 }}>
                     <Avatar />
                     <Box>
-                        <Typography variant='body1'>Shivam Kahar</Typography>
-                        <Typography variant='caption'>5 mins ago</Typography>
+                        <Typography variant='body1'>{'Shivam Kahar'}</Typography>
+                        <Typography variant='caption'>{moment(post.createdAt).fromNow()}</Typography>
                     </Box>
                     <MoreVert sx={{
                         marginLeft: 'auto'
                     }} />
                 </Box>
             </Stack>
-            <CardMedia component={'img'} src={'https://picsum.photos/1000/600'}>
-
-            </CardMedia>
-        </Card>
+            <Stack sx={{p:1}}>
+                <Typography variant='h5'>{post.desc}</Typography>
+                <CardMedia component={'img'} src={post.img}>
+                </CardMedia>
+            </Stack>
+        </Card >
     )
 }
 function Feed() {
+    const { posts, isLoading, error } = useGetPosts()
     return (
         <Box sx={{
             p: 2,
@@ -37,9 +48,13 @@ function Feed() {
             overflow: 'scroll',
             gap: 1
         }}>
-            <FeedItem />
-            <FeedItem />
-            <FeedItem />
+            <PostCreate />
+            {isLoading ? <CircularProgress sx={{
+                margin: '10% 50%'
+            }} /> : null}
+            {posts ? posts.map(post => (
+                <FeedItem post={post} />
+            )) : null}
         </Box>
     )
 }

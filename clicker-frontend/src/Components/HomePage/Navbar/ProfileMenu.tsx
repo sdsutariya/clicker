@@ -10,8 +10,6 @@ function ProfileMenu() {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = (event: any) => {
-        console.log(event);
-        
         setAnchorEl(null);
     };
 
